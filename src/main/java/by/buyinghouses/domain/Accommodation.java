@@ -33,11 +33,10 @@ public class Accommodation {
     @Column(nullable = false)
     private Boolean isInternet;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @CollectionTable(name = "accommodation_type", joinColumns = @JoinColumn(name = "accomodation_id"))
     @Enumerated(EnumType.STRING)
     private AccommodationType type;
 
