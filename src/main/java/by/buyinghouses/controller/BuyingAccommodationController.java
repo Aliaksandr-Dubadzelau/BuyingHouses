@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BuyingAccommodationController {
 
     @GetMapping("/buyingAccommodation")
-    public String main() {
+    public String getBuyingAccommodation() {
         return "buyingAccommodation";
     }
-
 }

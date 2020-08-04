@@ -6,12 +6,19 @@
 </head>
 <body>
 
+    <div>
+        <h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
+    </div>
 
-    <h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
+    <div>
+        <a href="/addAccommodation">Add accommodation</a><br>
+    </div>
 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
 
 </body>
 </html>

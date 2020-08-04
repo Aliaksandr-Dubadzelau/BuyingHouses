@@ -33,7 +33,7 @@ public class Accommodation {
     @Column(nullable = false)
     private Boolean isInternet;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User owner;
 
