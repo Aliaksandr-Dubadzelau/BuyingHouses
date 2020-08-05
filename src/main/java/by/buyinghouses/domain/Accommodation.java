@@ -33,12 +33,28 @@ public class Accommodation {
     @Column(nullable = false)
     private Boolean isInternet;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "user_id")
     private User owner;
 
     @Enumerated(EnumType.STRING)
     private AccommodationType type;
+
+    private String fileName;
+
+    public Accommodation() {
+    }
+
+    public Accommodation(String name, String city, Integer amountOfRooms, Float square, BigDecimal cost, Boolean isFurniture, Boolean isInternet, AccommodationType type) {
+        this.name = name;
+        this.city = city;
+        this.amountOfRooms = amountOfRooms;
+        this.square = square;
+        this.cost = cost;
+        this.isFurniture = isFurniture;
+        this.isInternet = isInternet;
+        this.type = type;
+    }
 
     public Long getId() {
         return id;
@@ -134,5 +150,13 @@ public class Accommodation {
 
     public void setType(String type) {
         this.type = AccommodationType.valueOf(type);
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

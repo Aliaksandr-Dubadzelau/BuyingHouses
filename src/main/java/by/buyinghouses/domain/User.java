@@ -34,6 +34,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Accommodation> accommodations;
 
+    public User() {
+    }
+
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }

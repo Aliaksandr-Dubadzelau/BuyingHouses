@@ -1,6 +1,7 @@
 package by.buyinghouses.service;
 
 import by.buyinghouses.domain.Accommodation;
+import by.buyinghouses.domain.User;
 import by.buyinghouses.repository.AccommodationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,20 @@ public class AccommodationService {
             isAdded = false;
         }
         else{
-            accommodation.setWaited(true);
-            accommodation.setRate(0.0f);
-
             accommodationRepository.save(accommodation);
         }
 
         return isAdded;
+
+    }
+
+    public void fillAccommodation(Accommodation accommodation, User user, Boolean isFurniture, Boolean isInternet){
+
+        accommodation.setOwner(user);
+        accommodation.setInternet(isInternet);
+        accommodation.setFurniture(isFurniture);
+        accommodation.setWaited(true);
+        accommodation.setRate(0.0f);
 
     }
 
