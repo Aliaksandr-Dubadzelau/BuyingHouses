@@ -1,7 +1,5 @@
 package by.buyinghouses.domain;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 

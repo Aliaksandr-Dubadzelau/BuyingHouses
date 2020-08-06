@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             isAdded = false;
         } else {
-            user.setRoles(Collections.singleton(Role.USER));
+            user.setRoles(Collections.singleton(Role.ADMIN));
             user.setActive(true);
             user.setActivationCode(UUID.randomUUID().toString());
             user.setPassword(passwordEncoder.encode(user.getPassword()));

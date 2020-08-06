@@ -43,12 +43,9 @@ public class AccommodationService {
 
     public void deleteAccommodation(String accommodationName) {
 
-        Accommodation accommodation = accommodationRepository.findByName(accommodationName);
-        accommodationRepository.delete(accommodation);
+        accommodationRepository.deleteByName(accommodationName);
 
     }
-
-
 
     public void fillAccommodation(Accommodation accommodation, User user, Boolean isFurniture, Boolean isInternet){
 

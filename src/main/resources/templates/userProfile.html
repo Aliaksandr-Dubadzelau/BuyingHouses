@@ -11,41 +11,51 @@
         <b>E-mail:</b> <span th:text="${user.getEmail()}"></span><br>
     </div>
 
-    <form th:action="@{/profile}" method="post">
+    <p>Approved accommodation<br></p>
+    <div th:each="accommodation : ${accommodations}">
+        <div th:unless="${accommodation.isWaited() and accommodation.getOwner().getId() == user.getId()}">
+            <b>Name: </b><span th:text="${accommodation.getName()}"></span><br>
+            <b>City: </b><span th:text="${accommodation.getCity()}"></span><br>
+            <b>Cost: </b><span th:text="${accommodation.getCost()}"></span><br>
+            <b>Rooms: </b><span th:text="${accommodation.getAmountOfRooms()}"></span><br>
+            <b>Square: </b><span th:text="${accommodation.getSquare()}"></span><br>
+            <b>Furnished: </b><span th:text="${accommodation.isFurniture()}"></span><br>
+            <b>Internet: </b><span th:text="${accommodation.isInternet()}"></span><br>
+            <b>Type: </b><span th:text="${accommodation.getType()}"></span><br>
+            <b>Rate: </b><span th:text="${accommodation.getRate()}"></span><br>
 
-        <p>Approved accommodation<br></p>
-        <div th:each="accommodation : ${user.getAccommodations()}">
-            <p th:unless="${accommodation.isWaited()}">
-                <b>Name: </b><span th:text="${accommodation.getName()}"></span><br>
-                <b>City: </b><span th:text="${accommodation.getCity()}"></span><br>
-                <b>Cost: </b><span th:text="${accommodation.getCost()}"></span><br>
-                <b>Rooms: </b><span th:text="${accommodation.getAmountOfRooms()}"></span><br>
-                <b>Square: </b><span th:text="${accommodation.getSquare()}"></span><br>
-                <b>Furnished: </b><span th:text="${accommodation.isFurniture()}"></span><br>
-                <b>Internet: </b><span th:text="${accommodation.isInternet()}"></span><br>
-                <b>Type: </b><span th:text="${accommodation.getType()}"></span><br>
-                <b>Rate: </b><span th:text="${accommodation.getRate()}"></span><br>
+            <!--                <img th:src="@{/img(name=${accommodation.getFileName()})}" alt=""-->
+            <!--                     th:if="${(accommodation.getFileName() != null)}"/><br>-->
 
-            </p>
+            <form th:action="@{/profile/delete}" method="post">
+                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                <button type="submit" name="delete">Delete</button>
+            </form>
         </div>
+    </div>
 
-        <p>Unapproved accommodation<br></p>
-        <div th:each="accommodation : ${user.getAccommodations()}">
-            <p th:if="${accommodation.isWaited()}">
-                <b>Name: </b><span th:text="${accommodation.getName()}"></span><br>
-                <b>City: </b><span th:text="${accommodation.getCity()}"></span><br>
-                <b>Cost: </b><span th:text="${accommodation.getCost()}"></span><br>
-                <b>Rooms: </b><span th:text="${accommodation.getAmountOfRooms()}"></span><br>
-                <b>Square: </b><span th:text="${accommodation.getSquare()}"></span><br>
-                <b>Furnished: </b><span th:text="${accommodation.isFurniture()}"></span><br>
-                <b>Internet: </b><span th:text="${accommodation.isInternet()}"></span><br>
-                <b>Type: </b><span th:text="${accommodation.getType()}"></span><br>
-                <b>Rate: </b><span th:text="${accommodation.getRate()}"></span><br>
+    <p>Unapproved accommodation<br></p>
+    <div th:each="accommodation : ${accommodations}">
+        <div th:if="${accommodation.isWaited() and accommodation.getOwner().getId() == user.getId()}">
+            <b>Name: </b><span th:text="${accommodation.getName()}"></span><br>
+            <b>City: </b><span th:text="${accommodation.getCity()}"></span><br>
+            <b>Cost: </b><span th:text="${accommodation.getCost()}"></span><br>
+            <b>Rooms: </b><span th:text="${accommodation.getAmountOfRooms()}"></span><br>
+            <b>Square: </b><span th:text="${accommodation.getSquare()}"></span><br>
+            <b>Furnished: </b><span th:text="${accommodation.isFurniture()}"></span><br>
+            <b>Internet: </b><span th:text="${accommodation.isInternet()}"></span><br>
+            <b>Type: </b><span th:text="${accommodation.getType()}"></span><br>
+            <b>Rate: </b><span th:text="${accommodation.getRate()}"></span><br>
+
 <!--                <img th:src="@{/img(name=${accommodation.getFileName()})}" alt=""-->
 <!--                     th:if="${(accommodation.getFileName() != null)}"/><br>-->
-            </p>
+
+            <form th:action="@{/profile/delete}" method="post">
+                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                <button type="submit" name="delete">Delete</button>
+            </form>
         </div>
-    </form>
+    </div>
 
     <div>
         <a href="/addAccommodation">Add accommodation</a><br>
