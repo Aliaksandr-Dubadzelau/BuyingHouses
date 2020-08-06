@@ -5,9 +5,7 @@ import by.buyinghouses.domain.AccommodationType;
 import by.buyinghouses.domain.User;
 import by.buyinghouses.service.AccommodationService;
 import by.buyinghouses.service.FileService;
-import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @Controller
 public class AddAccommodationController {
@@ -50,12 +46,13 @@ public class AddAccommodationController {
             fileService.saveImage(accommodation, file);
         }
 
-        if (!accommodationService.add(accommodation)) {
+        if (!accommodationService.addAccommodation(accommodation)) {
             model.addAttribute("message", "Accommodation with the same name already exists");
+            model.addAttribute("types", AccommodationType.values());
             return "addAccommodation";
         }
 
-        return "redirect:buyingAccommodation";
+        return "redirect:/buyingAccommodation";
     }
 
 }

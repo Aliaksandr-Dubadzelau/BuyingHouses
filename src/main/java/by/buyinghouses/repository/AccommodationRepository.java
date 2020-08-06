@@ -7,4 +7,6 @@ public interface AccommodationRepository extends CrudRepository<Accommodation, L
 
     Accommodation findByName(String name);
 
+    //void deleteByName(String name);
+
 }

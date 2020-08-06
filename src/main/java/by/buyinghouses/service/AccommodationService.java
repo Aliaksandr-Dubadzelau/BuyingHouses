@@ -12,7 +12,7 @@ public class AccommodationService {
     @Autowired
     AccommodationRepository accommodationRepository;
 
-    public boolean add(Accommodation accommodation){
+    public boolean addAccommodation(Accommodation accommodation){
 
         boolean isAdded = true;
 
@@ -29,6 +29,27 @@ public class AccommodationService {
 
     }
 
+    public Iterable<Accommodation> findAccommodations() {
+        return accommodationRepository.findAll();
+    }
+
+    public void acceptAccommodation(String accommodationName) {
+
+        Accommodation accommodation = accommodationRepository.findByName(accommodationName);
+        accommodation.setWaited(false);
+        accommodationRepository.save(accommodation);
+
+    }
+
+    public void deleteAccommodation(String accommodationName) {
+
+        Accommodation accommodation = accommodationRepository.findByName(accommodationName);
+        accommodationRepository.delete(accommodation);
+
+    }
+
+
+
     public void fillAccommodation(Accommodation accommodation, User user, Boolean isFurniture, Boolean isInternet){
 
         accommodation.setOwner(user);
@@ -38,8 +59,5 @@ public class AccommodationService {
         accommodation.setRate(0.0f);
 
     }
-
-    //delete accommodation
-    //buy accommodation
 
 }

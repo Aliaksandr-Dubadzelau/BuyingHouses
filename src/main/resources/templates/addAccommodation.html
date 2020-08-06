@@ -65,17 +65,29 @@
 
         <div>
             <label>
-                <input type="file" name="file">
+                <input type="file" name="file"><br>
             </label>
         </div>
 
         <div>
             <label>
-                <button name="add" type="submit">Add</button>
+                <button name="add" type="submit">Add</button><br>
             </label>
         </div>
 
     </form>
+
+    <div>
+        <a href="/addAccommodation">Add accommodation</a><br>
+        <a href="/profile">Profile</a><br>
+        <a href="/buyingAccommodation">Home</a><br>
+    </div>
+
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 package by.buyinghouses.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,7 +12,7 @@ public class Accommodation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
     private String city;
@@ -33,7 +35,7 @@ public class Accommodation {
     @Column(nullable = false)
     private Boolean isInternet;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User owner;
 
