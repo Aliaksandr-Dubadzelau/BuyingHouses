@@ -7,10 +7,6 @@
 <body>
 
     <div>
-        <h5 th:text="${message}"></h5>
-    </div>
-
-    <div>
         <form th:action="@{/registration}" method="post">
 
             <div>
@@ -24,7 +20,7 @@
                 </label>
             </div>
             <div>
-                <label>Repeat password:
+                <label>Repeated password:
                     <input name="repeatedPassword" type="password" placeholder="repeat password"><br>
                 </label>
             </div>

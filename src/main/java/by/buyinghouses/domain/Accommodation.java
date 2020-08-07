@@ -1,18 +1,25 @@
 package by.buyinghouses.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Accommodation {
+public class Accommodation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Please fill field name")
     private String name;
     @Column(nullable = false)
+    @NotBlank(message = "Please fill field city")
+    @Length(max = 225, message = "City name too long (255)")
     private String city;
 
     @Column(nullable = false)

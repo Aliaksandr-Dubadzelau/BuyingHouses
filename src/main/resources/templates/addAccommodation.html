@@ -65,7 +65,7 @@
 
         <div>
             <label>
-                <input type="file" name="file"><br>
+                <input type="file" name="file" accept="image/jpeg,image/png" required><br>
             </label>
         </div>
 
@@ -81,6 +81,9 @@
         <a href="/addAccommodation">Add accommodation</a><br>
         <a href="/profile">Profile</a><br>
         <a href="/buyingAccommodation">Home</a><br>
+        <div th:if="${user.isAdmin()}">
+            <a href="/adminPanel">Admin panel</a>
+        </div>
     </div>
 
     <div>

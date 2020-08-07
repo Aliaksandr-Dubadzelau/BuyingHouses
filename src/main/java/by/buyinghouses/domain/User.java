@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -17,10 +19,14 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Please fill field logn")
     private String userName;
     @Column(nullable = false)
+    @NotBlank(message = "Please fill field password")
     private String password;
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Please fill field email")
+    @Email(message = "Email isn't correct")
     private String email;
     private boolean active;
     @Column(unique = true)

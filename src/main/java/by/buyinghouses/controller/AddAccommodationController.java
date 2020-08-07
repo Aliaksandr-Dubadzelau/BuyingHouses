@@ -9,11 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class AddAccommodationController {
@@ -24,8 +29,11 @@ public class AddAccommodationController {
     private FileService fileService;
 
     @GetMapping("/addAccommodation")
-    public String getAddAccommodation(Model model){
+    public String getAddAccommodation(
+            @AuthenticationPrincipal User user,
+            Model model){
 
+        model.addAttribute("user", user);
         model.addAttribute("types", AccommodationType.values());
 
         return "addAccommodation";
@@ -37,22 +45,34 @@ public class AddAccommodationController {
             boolean isInternet,
             boolean isFurniture,
             MultipartFile file,
-            Accommodation accommodation, Model model
+            @Valid Accommodation accommodation,
+            BindingResult bindingResult,
+            Model model
     ) throws IOException {
 
-        accommodationService.fillAccommodation(accommodation, user, isFurniture, isInternet);
+        if(bindingResult.hasErrors()){
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
-        if(file != null){
-            fileService.saveImage(accommodation, file);
-        }
+            model.mergeAttributes(errorsMap);
 
-        if (!accommodationService.addAccommodation(accommodation)) {
-            model.addAttribute("message", "Accommodation with the same name already exists");
-            model.addAttribute("types", AccommodationType.values());
             return "addAccommodation";
         }
+        else {
 
-        return "redirect:/buyingAccommodation";
+            accommodationService.fillAccommodation(accommodation, user, isFurniture, isInternet);
+
+            if (file != null) {
+                fileService.saveImage(accommodation, file);
+            }
+
+            if (!accommodationService.addAccommodation(accommodation)) {
+                model.addAttribute("message", "Accommodation with the same name already exists");
+                model.addAttribute("types", AccommodationType.values());
+                return "addAccommodation";
+            }
+
+            return "redirect:/buyingAccommodation";
+        }
     }
 
 }

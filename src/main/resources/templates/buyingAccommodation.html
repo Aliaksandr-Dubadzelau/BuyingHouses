@@ -5,15 +5,35 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+    <div th:each="accommodation : ${accommodations}">
+        <div th:if="${!accommodation.isWaited()}">
+            <b>Name: </b><span th:text="${accommodation.getName()}"></span><br>
+            <b>City: </b><span th:text="${accommodation.getCity()}"></span><br>
+            <b>Cost: </b><span th:text="${accommodation.getCost()}"></span><br>
+            <b>Rooms: </b><span th:text="${accommodation.getAmountOfRooms()}"></span><br>
+            <b>Square: </b><span th:text="${accommodation.getSquare()}"></span><br>
+            <b>Furnished: </b><span th:text="${accommodation.isFurniture()}"></span><br>
+            <b>Internet: </b><span th:text="${accommodation.isInternet()}"></span><br>
+            <b>Type: </b><span th:text="${accommodation.getType()}"></span><br>
+            <b>Owner: </b><span th:text="${accommodation.getOwner().getUserName()}"></span><br>
+            <b>E-mail: </b><span th:text="${accommodation.getOwner().getEmail()}"></span><br>
 
-    <div>
-        <h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
+            <img th:src="@{/img/{id}(id=${accommodation.getFileName()})}" alt="">
+
+            <form method="post" th:action="@{/buyingAccommodation/buy/{id}(id=${accommodation.getId()})}">
+                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                <button type="submit" name="buy">Buy</button>
+            </form>
+        </div>
     </div>
 
     <div>
         <a href="/addAccommodation">Add accommodation</a><br>
         <a href="/profile">Profile</a><br>
         <a href="/buyingAccommodation">Home</a><br>
+        <div th:if="${user.isAdmin()}">
+            <a href="/adminPanel">Admin panel</a>
+        </div>
     </div>
 
     <div>
