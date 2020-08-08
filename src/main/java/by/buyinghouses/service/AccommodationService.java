@@ -33,6 +33,10 @@ public class AccommodationService {
         return accommodationRepository.findAll();
     }
 
+    public Accommodation findAccommodation(Long id){
+        return accommodationRepository.findById(id).get();
+    }
+
     public void acceptAccommodation(String accommodationName) {
 
         Accommodation accommodation = accommodationRepository.findByName(accommodationName);
