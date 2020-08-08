@@ -13,23 +13,23 @@
 
     <form method="post" th:action="@{/payment/{id}(id=${accommodation.getId()})}">
         <div>
-            <b>Номер карты</b>
+            <b>Card number: </b>
             <label>
                 <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
                 <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
                 <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
                 <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
             </label><br>
-            <b>Срок действия карты</b>
+            <b>Date: </b>
             <label>
                 <input type="number" min="1" max="31" placeholder="DAY" required>
                 <input type="number" min="1" max="12" placeholder="MONTH" required>
             </label><br>
-            <b>Владелец карты</b>
+            <b>Card owner: </b>
             <label>
                 <input type="text" pattern="[A-Z]+\s[A-Z]+" placeholder="NAME SURNAME" title="NAME SURNAME" required>
             </label><br>
-            <b>CVC2/CVV2 код</b>
+            <b>CVC2/CVV2 code: </b>
             <label>
                 <input type="text" pattern="[0-9]{3}" placeholder="CVC/CVV" title="XXX" required>
             </label><br>

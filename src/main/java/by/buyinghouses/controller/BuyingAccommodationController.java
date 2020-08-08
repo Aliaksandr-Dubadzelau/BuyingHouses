@@ -27,11 +27,4 @@ public class BuyingAccommodationController {
 
         return "buyingAccommodation";
     }
-
-    @PostMapping("/buy/{id}")
-    public String postBuyingAccommodation(
-            @PathVariable Long id)
-    {
-        return "redirect:/payment/{id}";
-    }
 }

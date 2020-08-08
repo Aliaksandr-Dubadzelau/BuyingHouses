@@ -33,8 +33,8 @@ public class AccommodationService {
         return accommodationRepository.findAll();
     }
 
-    public Accommodation findAccommodation(Long id){
-        return accommodationRepository.findById(id).get();
+    public Accommodation findAccommodation(String accommodationName){
+        return accommodationRepository.findByName(accommodationName);
     }
 
     public void acceptAccommodation(String accommodationName) {

@@ -19,11 +19,12 @@ public class PaymentController {
     @GetMapping("{id}")
     public String getPayment(
             @AuthenticationPrincipal User user,
+            @RequestParam String accommodationName,
             @PathVariable Long id,
             Model model
     ){
 
-        Accommodation accommodation  = accommodationService.findAccommodation(id);
+        Accommodation accommodation  = accommodationService.findAccommodation(accommodationName);
         model.addAttribute("user", user);
         model.addAttribute("accommodation",accommodation);
 

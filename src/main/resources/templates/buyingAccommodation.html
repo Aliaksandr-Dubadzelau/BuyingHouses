@@ -20,8 +20,8 @@
 
             <img th:src="@{/img/{id}(id=${accommodation.getFileName()})}" alt="">
 
-            <form method="post" th:action="@{/buyingAccommodation/buy/{id}(id=${accommodation.getId()})}">
-                <input type="hidden" name="accommodationName" th:value="${accommodation}">
+            <form method="get" th:action="@{/payment/{id}(id=${accommodation.getId()})}">
+                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
                 <button type="submit" name="buy">Buy</button>
             </form>
         </div>
