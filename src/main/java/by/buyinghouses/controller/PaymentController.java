@@ -9,37 +9,47 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
 
+    private static final String PAYMENT = "payment";
+    private static final String BUYING_ACCOMMODATION = "buyingAccommodation";
+
+    private final AccommodationService accommodationService;
+
     @Autowired
-    private AccommodationService accommodationService;
+    public PaymentController(AccommodationService accommodationService) {
+        this.accommodationService = accommodationService;
+    }
 
     @GetMapping("{id}")
     public String getPayment(
+            @PathVariable Long id,
             @AuthenticationPrincipal User user,
             @RequestParam String accommodationName,
-            @PathVariable Long id,
             Model model
-    ){
+    ) {
 
-        Accommodation accommodation  = accommodationService.findAccommodation(accommodationName);
+        Accommodation accommodation = accommodationService.findAccommodation(accommodationName);
         model.addAttribute("user", user);
-        model.addAttribute("accommodation",accommodation);
+        model.addAttribute("accommodation", accommodation);
 
-        return "payment";
+        return PAYMENT;
     }
 
     @PostMapping("{id}")
     public String postPayment(
             @PathVariable Long id,
-            @RequestParam String accommodationName
-    ){
+            @RequestParam String accommodationName,
+            @RequestParam String fileName
+    ) throws IOException {
 
-        accommodationService.deleteAccommodation(accommodationName);
+        accommodationService.deleteAccommodation(accommodationName, fileName);
 
-        return "redirect:/buyingAccommodation";
+        return "redirect:/" + BUYING_ACCOMMODATION;
     }
 
 }

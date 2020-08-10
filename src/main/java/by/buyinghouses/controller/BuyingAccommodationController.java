@@ -13,18 +13,25 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/buyingAccommodation")
 public class BuyingAccommodationController {
 
+    private static final String BUYING_ACCOMMODATION = "buyingAccommodation";
+
+    private final AccommodationService accommodationService;
+
     @Autowired
-    private AccommodationService accommodationService;
+    public BuyingAccommodationController(AccommodationService accommodationService) {
+        this.accommodationService = accommodationService;
+    }
 
     @GetMapping
     public String getBuyingAccommodation(
             @AuthenticationPrincipal User user,
-            Model model) {
+            Model model)
+    {
 
         Iterable<Accommodation> accommodations = accommodationService.findAccommodations();
         model.addAttribute("user", user);
         model.addAttribute("accommodations", accommodations);
 
-        return "buyingAccommodation";
+        return BUYING_ACCOMMODATION;
     }
 }

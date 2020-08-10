@@ -12,12 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
 
+    private static final String PROFILE = "profile";
+    private static final String USER_PROFILE = "userProfile";
+
+    private final AccommodationService accommodationService;
+
     @Autowired
-    private AccommodationService accommodationService;
+    public ProfileController(AccommodationService accommodationService) {
+        this.accommodationService = accommodationService;
+    }
 
     @GetMapping
     public String getProfile(
@@ -26,22 +35,21 @@ public class ProfileController {
 
         Iterable<Accommodation> accommodations = accommodationService.findAccommodations();
 
-        model.addAttribute( "user", user);
+        model.addAttribute("user", user);
         model.addAttribute("accommodations", accommodations);
 
-        return "userProfile";
-
+        return USER_PROFILE;
     }
 
     @PostMapping("/delete")
     public String postProfile(
-            @RequestParam String accommodationName
-    ){
+            @RequestParam String accommodationName,
+            @RequestParam String fileName
+    ) throws IOException {
 
-        accommodationService.deleteAccommodation(accommodationName);
+        accommodationService.deleteAccommodation(accommodationName, fileName);
 
-        return "redirect:/profile";
-
+        return "redirect:/" + PROFILE;
     }
 
 }

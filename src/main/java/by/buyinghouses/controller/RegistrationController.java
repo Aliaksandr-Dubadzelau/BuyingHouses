@@ -1,9 +1,9 @@
 package by.buyinghouses.controller;
 
 import by.buyinghouses.domain.User;
+import by.buyinghouses.service.MessageCreatorService;
 import by.buyinghouses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,8 +18,17 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
 
+    private static final String REGISTRATION = "registration";
+    private static final String LOGIN = "login";
+
+    private final UserService userService;
+    private final MessageCreatorService messageCreatorService;
+
     @Autowired
-    private UserService userService;
+    public RegistrationController(UserService userService, MessageCreatorService messageCreatorService) {
+        this.userService = userService;
+        this.messageCreatorService = messageCreatorService;
+    }
 
     @GetMapping("/registration")
     public String getRegistration() {
@@ -27,37 +36,46 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String postRegistration(@Valid User user,
-                                   @RequestParam String repeatedPassword,
-                                   BindingResult bindingResult,
-                                   Model model) {
+    public String postRegistration(
+            @Valid User user,
+            @RequestParam String repeatedPassword,
+            BindingResult bindingResult,
+            Model model)
+    {
 
         boolean isRepeatedPasswordEmpty = StringUtils.isEmpty(repeatedPassword);
 
         if(isRepeatedPasswordEmpty){
-            model.addAttribute("repeatedPassword", "Please fill field repeated password");
-            return "registration";
+            String message = messageCreatorService.createEmptyRepeatedPasswordMessage();
+            model.addAttribute("repeatedPassword", message);
         }
 
+        System.out.println(user.getPassword());
+        System.out.println(repeatedPassword);
+
         if(!user.getPassword().equals(repeatedPassword)){
-            model.addAttribute("repeatedPassword", "Passwords are different");
-            return "registration";
+            System.out.println("her");
+            String message = messageCreatorService.createDifferentPasswordsMessage();
+            model.addAttribute("repeatedPassword", message);
+
+            return REGISTRATION;
         }
 
         if(bindingResult.hasErrors()){
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
-
             model.mergeAttributes(errors);
 
-            return "registration";
+            return REGISTRATION;
         }
 
         if (!userService.addUser(user)) {
-            model.addAttribute("userName", "User exist");
-            return "registration";
+            String message = messageCreatorService.createUserExistMessage();
+            model.addAttribute("userName", message);
+
+            return REGISTRATION;
         }
 
-        return "redirect:/login";
+        return "redirect:/" + LOGIN;
     }
 
 }

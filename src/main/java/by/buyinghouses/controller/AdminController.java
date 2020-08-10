@@ -8,43 +8,55 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
 
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/adminPanel")
 public class AdminController {
 
+    private static final String ADMIN_PANEL = "adminPanel";
+
+    private final AccommodationService accommodationService;
+
     @Autowired
-    private AccommodationService accommodationService;
+    public AdminController(AccommodationService accommodationService) {
+        this.accommodationService = accommodationService;
+    }
 
     @GetMapping
     public String getAdminPanel(
             @AuthenticationPrincipal User user,
-            Model model){
+            Model model) {
 
         Iterable<Accommodation> accommodations = accommodationService.findAccommodations();
         model.addAttribute("user", user);
         model.addAttribute("accommodations", accommodations);
 
-        return "adminPanel";
+        return ADMIN_PANEL;
     }
 
     @PostMapping("/accept")
     public String postAccess(
-            @RequestParam String accommodationName){
+            @RequestParam String accommodationName) {
 
         accommodationService.acceptAccommodation(accommodationName);
 
-        return "redirect:/adminPanel";
+        return "redirect:/" + ADMIN_PANEL;
     }
 
     @PostMapping("/delete")
     public String postDelete(
-            @RequestParam String accommodationName){
+            @RequestParam String accommodationName,
+            @RequestParam String fileName) throws IOException {
 
-        accommodationService.deleteAccommodation(accommodationName);
+        accommodationService.deleteAccommodation(accommodationName, fileName);
 
-        return "redirect:/adminPanel";
+        return "redirect:/" + ADMIN_PANEL;
     }
 }

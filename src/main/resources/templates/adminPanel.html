@@ -29,6 +29,7 @@
             </form>
             <form method="post" th:action="@{/adminPanel/delete}">
                 <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
                 <button type="submit" name="delete">Delete</button>
             </form>
         </div>

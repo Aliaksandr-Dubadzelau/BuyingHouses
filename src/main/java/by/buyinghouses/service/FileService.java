@@ -1,53 +1,69 @@
 package by.buyinghouses.service;
 
-import by.buyinghouses.domain.Accommodation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class FileService {
 
     @Value("${upload.path}")
-    private String uploadPath;
+    private String path;
 
-    public void saveImage(Accommodation accommodation, MultipartFile file) throws IOException {
+    private final UUIDService uuidService;
+
+    @Autowired
+    public FileService(UUIDService uuidService) {
+        this.uuidService = uuidService;
+    }
+
+    public void saveImage(String fileName, MultipartFile file) throws IOException {
 
         createUploadFolder();
-
-        String uuidFile = createUUID();
-        String resultFileName = createFileName(uuidFile, file);
-
-        upload(file, resultFileName);
-
-        accommodation.setFileName(resultFileName);
-
+        upload(file, fileName);
     }
 
-    private void createUploadFolder(){
+    public String createFileName(MultipartFile file) {
 
-        File uploadFolder = new File(uploadPath);
+        String uuidFile = uuidService.createUUID();
 
-        if(!uploadFolder.exists()){
+        return createFileName(uuidFile, file);
+    }
+
+    public void deleteImage(String fileName) throws IOException {
+
+        String stringPath = createPaths(fileName);
+        Path filePath = Paths.get(stringPath);
+        Files.delete(filePath);
+    }
+
+    private String createPaths(String fileName) {
+        return path + "/" + fileName;
+    }
+
+    private void createUploadFolder() {
+
+        File uploadFolder = new File(path);
+
+        if (!uploadFolder.exists()) {
             uploadFolder.mkdir();
         }
-
     }
 
-    private String createFileName(String uuid, MultipartFile file){
+    private String createFileName(String uuid, MultipartFile file) {
         return uuid + "." + file.getOriginalFilename();
     }
 
-    private void upload(MultipartFile file, String fileName) throws IOException{
-        file.transferTo(new File(uploadPath + "/" + fileName));
-    }
+    private void upload(MultipartFile file, String fileName) throws IOException {
 
-    private String createUUID(){
-        return UUID.randomUUID().toString();
+        String filePath = createPaths(fileName);
+        file.transferTo(new File(filePath));
     }
-
 }

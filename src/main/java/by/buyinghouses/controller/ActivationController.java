@@ -1,5 +1,6 @@
 package by.buyinghouses.controller;
 
+import by.buyinghouses.service.MessageCreatorService;
 import by.buyinghouses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,21 +11,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ActivationController {
 
+    public static final String LOGIN = "login";
+
+    private final UserService userService;
+    private final MessageCreatorService messageCreatorService;
+
     @Autowired
-    private UserService userService;
+    public ActivationController(UserService userService, MessageCreatorService messageCreatorService) {
+        this.userService = userService;
+        this.messageCreatorService = messageCreatorService;
+    }
 
     @GetMapping("/activate/{code}")
     public String activate(Model model, @PathVariable String code) {
 
+        String message;
         boolean isActivated = userService.activateUser(code);
 
         if (isActivated) {
-            model.addAttribute("message", "User successfully activated.");
+            message = messageCreatorService.createSuccessfullyActivatedMessage();
         } else {
-            model.addAttribute("message", "Activation code is not found.");
+            message = messageCreatorService.createActivationCodeNotFoundMessage();
         }
 
-        return "login";
+        model.addAttribute("message", message);
+
+        return LOGIN;
     }
 
 }

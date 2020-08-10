@@ -12,49 +12,54 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Collections;
-import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final static boolean ACTIVATED = true;
+    private final static boolean NOT_ACTIVATED = false;
+    private final static boolean ADDED = true;
+    private final static boolean NOT_ADDED = false;
+    private final static String CONFIRMED_ACTIVATION_CODE = null;
+    private final static String MAIL_SUBJECT = "Activation code";
+
+    private final UserRepository userRepository;
+    private final MailSenderService mailSenderService;
+    private final MessageCreatorService messageCreatorService;
+    private final UUIDService uuidService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private MailSenderService senderService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUserName(username);
+    public UserService(UserRepository userRepository,
+                       MailSenderService mailSenderService,
+                       MessageCreatorService messageCreatorService,
+                       UUIDService uuidService,
+                       PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.mailSenderService = mailSenderService;
+        this.messageCreatorService = messageCreatorService;
+        this.uuidService = uuidService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean addUser(User user) {
 
-        boolean isAdded = true;
-
-        User userFromDB = userRepository.findByEmailOrUserName(user.getEmail(), user.getUserName());
+        String userEmail = user.getEmail();
+        String userName = user.getUserName();
+        User userFromDB = userRepository.findByEmailOrUserName(userEmail, userName);
+        boolean isAdded = ADDED;
 
         if (userFromDB != null) {
-            isAdded = false;
+            isAdded = NOT_ADDED;
         } else {
-            user.setRoles(Collections.singleton(Role.ADMIN));
-            user.setActive(true);
-            user.setActivationCode(UUID.randomUUID().toString());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
+            prepareUserToSaving(user);
+            save(user);
 
             if (!StringUtils.isEmpty(user.getEmail())) {
-                String message = String.format(
-                        "Hello, %s! \n" +
-                                "Welcome to Buyinghouses. Please, visit our link: http://localhost:8080/activate/%s",
-                        user.getUserName(),
-                        user.getActivationCode()
-                );
 
-                senderService.send(user.getEmail(), "Activation code", message);
+                String message = messageCreatorService.createEmailMessage(user);
+
+                mailSenderService.send(userEmail, MAIL_SUBJECT, message);
             }
         }
 
@@ -63,19 +68,43 @@ public class UserService implements UserDetailsService {
 
     public boolean activateUser(String code) {
 
-        boolean isActivated = true;
-
         User user = userRepository.findByActivationCode(code);
+        boolean isActivated = ACTIVATED;
 
         if (user == null) {
-            isActivated = false;
+            isActivated = NOT_ACTIVATED;
         } else {
-            user.setActivationCode(null);
-            userRepository.save(user);
+            activate(user);
+            save(user);
         }
 
         return isActivated;
     }
 
+    private void prepareUserToSaving(User user) {
 
+        String activationCode = uuidService.createUUID();
+        String password = user.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+
+        user.setRoles(Collections.singleton(Role.USER));
+        user.setActive(NOT_ACTIVATED);
+        user.setActivationCode(activationCode);
+        user.setPassword(encodedPassword);
+    }
+
+    private void activate(User user) {
+
+        user.setActive(ACTIVATED);
+        user.setActivationCode(CONFIRMED_ACTIVATION_CODE);
+    }
+
+    private void save(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUserName(username);
+    }
 }
