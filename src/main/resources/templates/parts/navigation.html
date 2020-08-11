@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+
+    <div th:fragment="navigation">
+        <a href="/addAccommodation">Add accommodation</a><br>
+        <a href="/profile">Profile</a><br>
+        <a href="/buyingAccommodation">Home</a><br>
+        <div th:if="${user.isAdmin()}">
+            <a href="/adminPanel">Admin panel</a><br>
+        </div>
+        <div>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

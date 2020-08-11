@@ -6,49 +6,43 @@
 </head>
 <body>
 
-    <div>
-        <b>Accommodation name: </b><span th:text="${accommodation.getName()}"></span><br>
-        <b>Accommodation cost: </b><span th:text="${accommodation.getCost()}"></span><br>
-    </div>
-
-    <form method="post" th:action="@{/payment/{id}(id=${accommodation.getId()})}">
         <div>
-            <b>Card number: </b>
-            <label>
-                <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
-                <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
-                <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
-                <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
-            </label><br>
-            <b>Date: </b>
-            <label>
-                <input type="number" min="1" max="31" placeholder="DAY" required>
-                <input type="number" min="1" max="12" placeholder="MONTH" required>
-            </label><br>
-            <b>Card owner: </b>
-            <label>
-                <input type="text" pattern="[A-Z]+\s[A-Z]+" placeholder="NAME SURNAME" title="NAME SURNAME" required>
-            </label><br>
-            <b>CVC2/CVV2 code: </b>
-            <label>
-                <input type="text" pattern="[0-9]{3}" placeholder="CVC/CVV" title="XXX" required>
-            </label><br>
+            <b>Accommodation name: </b><span th:text="${accommodation.getName()}"></span><br>
+            <b>Accommodation cost: </b><span th:text="${accommodation.getCost()}"></span><br>
         </div>
 
-        <div>
-                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
-                <button type="submit" name="buy">Buy</button>
-        </div>
-    </form>
-    <div>
-        <a href="/addAccommodation">Add accommodation</a><br>
-        <a href="/profile">Profile</a><br>
-        <a href="/buyingAccommodation">Home</a><br>
-        <div th:if="${user.isAdmin()}">
-            <a href="/adminPanel">Admin panel</a>
-        </div>
-    </div>
+        <form method="post" th:action="@{/payment/{id}(id=${accommodation.getId()})}">
+            <div>
+                <b>Card number: </b>
+                <label>
+                    <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
+                    <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
+                    <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
+                    <input type="text" pattern="[0-9]{4}" placeholder="XXXX" title="XXXX" required>
+                </label><br>
+                <b>Date: </b>
+                <label>
+                    <input type="number" min="1" max="31" placeholder="DAY" required>
+                    <input type="number" min="1" max="12" placeholder="MONTH" required>
+                </label><br>
+                <b>Card owner: </b>
+                <label>
+                    <input type="text" pattern="[A-Z]+\s[A-Z]+" placeholder="NAME SURNAME" title="NAME SURNAME" required>
+                </label><br>
+                <b>CVC2/CVV2 code: </b>
+                <label>
+                    <input type="text" pattern="[0-9]{3}" placeholder="CVC/CVV" title="XXX" required>
+                </label><br>
+            </div>
+
+            <div>
+                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                    <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
+                    <button type="submit" name="buy">Buy</button>
+            </div>
+        </form>
+
+        <div th:insert="~{parts/navigation :: navigation}"></div>
 
 </body>
 </html>
