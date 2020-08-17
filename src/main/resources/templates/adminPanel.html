@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Admin Panel Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
-        <div>
-            <h1>ADMIN PANEL</h1>
-        </div>
+        <header th:insert="~{parts/navigation :: navigation}"></header>
 
-        <div th:each="accommodation : ${accommodations}">
-            <div th:if="${accommodation.isWaited()}">
+        <main role="main">
+            <div class="container">
+                <div class="row">
+                    <div th:each="accommodation : ${accommodations}" class="col-md-4 col-sm-6">
+                        <div th:if="${accommodation.isWaited()}" class="card mb-4 shadow-sm">
 
-                <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
+                            <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
 
-                <form method="post" th:action="@{/adminPanel/accept}">
-                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                    <button type="submit" name="accept">Accept</button>
-                </form>
+                            <form method="post" th:action="@{/adminPanel/accept}">
+                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                <button class="btn btn-success btn-block" type="submit" name="accept">Accept</button>
+                            </form>
 
-                <form method="post" th:action="@{/adminPanel/delete}">
-                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                    <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
-                    <button type="submit" name="delete">Delete</button>
-                </form>
+                            <div class="indent"></div>
 
+                            <form method="post" th:action="@{/adminPanel/delete}">
+                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
+                                <button class="btn btn-danger btn-block" type="submit" name="delete">Delete</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <div th:insert="~{parts/navigation :: navigation}"></div>
-
+        <div th:insert="~{/parts/scripts :: scripts}"></div>
 </body>
 </html>

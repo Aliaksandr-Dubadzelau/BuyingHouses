@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>User Profile Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+
+        <header th:insert="~{parts/navigation :: navigation}"></header>
 
         <div>
             <b>Login:</b> <span th:text="${user.getUserName()}"></span><br>
             <b>E-mail:</b> <span th:text="${user.getEmail()}"></span><br>
         </div>
 
-        <p>Approved accommodation<br></p>
-        <div th:each="accommodation : ${accommodations}">
-            <div th:if="${!accommodation.isWaited() and accommodation.getOwner().getId() == user.getId()}">
+        <main role="main">
+            <div class="container">
+                <div class="row">
+                    <p>Approved accommodation<br></p>
+                    <div th:each="accommodation : ${accommodations}" class="col-md-4 col-sm-6">
+                        <div th:if="${!accommodation.isWaited() && accommodation.getOwner().getId() == user.getId()}" class="card mb-4 shadow-sm">
 
-                <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
+                            <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
 
-                <form th:action="@{/profile/delete}" method="post">
-                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                    <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
-                    <button type="submit" name="delete">Delete</button>
-                </form>
+                            <form th:action="@{/profile/delete}" method="post">
+                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
+                                <button class="btn btn-danger btn-block" type="submit" name="delete">Delete</button>
+                            </form>
 
+                        </div>
+                    </div>
+                    <p>Unapproved accommodation<br></p>
+                    <div th:each="accommodation : ${accommodations}" class="col-md-4 col-sm-6">
+                        <div th:if="${accommodation.isWaited() && accommodation.getOwner().getId() == user.getId()}" class="card mb-4 shadow-sm">
+
+                            <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
+
+                            <form th:action="@{/profile/delete}" method="post">
+                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
+                                <button class="btn btn-danger btn-block" type="submit" name="delete">Delete</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <p>Unapproved accommodation<br></p>
-        <div th:each="accommodation : ${accommodations}">
-            <div th:if="${accommodation.isWaited() && accommodation.getOwner().getId() == user.getId()}">
-
-                <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
-
-                <form th:action="@{/profile/delete}" method="post">
-                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                    <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
-                    <button type="submit" name="delete">Delete</button>
-                </form>
-
-            </div>
-        </div>
-
-        <div th:insert="~{parts/navigation :: navigation}"></div>
+        <div th:insert="~{/parts/scripts :: scripts}"></div>
 
 </body>
 </html>

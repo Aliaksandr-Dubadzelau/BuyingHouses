@@ -3,23 +3,34 @@
 <head>
     <title>Buying Houses</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
-        <div th:each="accommodation : ${accommodations}">
-            <div th:if="${!accommodation.isWaited()}">
+        <header th:insert="~{parts/navigation :: navigation}"></header>
 
-                <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
+        <main role="main">
+            <div class="container">
+                <div class="row">
+                    <div th:each="accommodation : ${accommodations}" class="col-md-4 col-sm-6">
+                        <div th:if="${!accommodation.isWaited()}" class="card mb-4 shadow-sm">
 
-                <form method="get" th:action="@{/payment/{id}(id=${accommodation.getId()})}">
-                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                    <button type="submit" name="buy">Buy</button>
-                </form>
+                            <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
 
+                            <form method="get" th:action="@{/payment/{id}(id=${accommodation.getId()})}">
+                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                <button class="btn btn-warning btn-block" type="submit" name="buy">Buy</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
 
-        <div th:insert="~{parts/navigation :: navigation}"></div>
+        <div th:insert="~{/parts/scripts :: scripts}"></div>
 
 </body>
 </html>

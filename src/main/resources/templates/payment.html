@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Sale Accommodation Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+
+        <header th:insert="~{parts/navigation :: navigation}"></header>
 
         <div>
             <b>Accommodation name: </b><span th:text="${accommodation.getName()}"></span><br>
@@ -42,7 +47,7 @@
             </div>
         </form>
 
-        <div th:insert="~{parts/navigation :: navigation}"></div>
+        <div th:insert="~{/parts/scripts :: scripts}"></div>
 
 </body>
 </html>

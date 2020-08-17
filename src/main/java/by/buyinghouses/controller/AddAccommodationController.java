@@ -53,9 +53,9 @@ public class AddAccommodationController {
     @PostMapping("/addAccommodation")
     public String postAddAccommodation(
             @AuthenticationPrincipal User user,
-            @RequestParam boolean isInternet,
-            @RequestParam boolean isFurniture,
-            @RequestParam MultipartFile file,
+            boolean isInternet,
+            boolean isFurniture,
+            MultipartFile file,
             @Valid Accommodation accommodation,
             BindingResult bindingResult,
             Model model

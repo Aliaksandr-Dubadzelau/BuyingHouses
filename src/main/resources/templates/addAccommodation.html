@@ -1,83 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Add Accommodation Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
-        <div th:if="${message}">
-            <h5 th:text="${message}"></h5>
+        <header th:insert="~{parts/navigation :: navigation}"></header>
+
+        <div>
+            <div th:if="${message}">
+                <h5 th:text="${message}"></h5>
+            </div>
+
+            <form th:action="@{/addAccommodation}" method="post" enctype="multipart/form-data">
+
+                <div class="text">
+                    <label> Name:
+                        <input name="name" type="text" placeholder="name" required>
+                    </label>
+                </div><br>
+
+                <div class="text">
+                    <label> City:
+                        <input name="city" type="text" placeholder="city" required>
+                    </label>
+                </div><br>
+
+                <div class="text">
+                    <label> Rooms:
+                        <input name="amountOfRooms" type="number" min="1" max="25" step="1" value="0" required>
+                    </label>
+                </div><br>
+
+                <div class="text">
+                    <label> Square:
+                        <input name="square" type="number" min="1" max="50000" value="1.0" step="0.1" required>
+                    </label>
+                </div><br>
+
+                <div class="text">
+                    <label> Cost:
+                        <input name="cost" type="number" placeholder="cost" min="1.0" value="1.0" step="0.01" required> $
+                    </label>
+                </div><br>
+
+                <div class="text">
+                    <label> Furnished:
+                        <input name="isFurniture" type="checkbox" th:value="true" th:default="false">
+                    </label>
+                </div><br>
+
+                <div class="text">
+                    <label> Internet:
+                        <input name="isInternet" type="checkbox" th:value="true" th:default="false">
+                    </label>
+                </div><br>
+
+                <div class="text">
+                    <label> Type: <br>
+                        <label th:each="type : ${types}">
+                            <input name="type" type="radio" th:value="${type}" required>
+                            <label th:text="${type}"></label><br>
+                        </label>
+                    </label>
+                </div><br>
+
+                <div>
+                    <label>
+                        <input class="text" type="file" name="file" accept="image/jpeg,image/png" max required><br>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        <button class="text" name="add" type="submit">Add</button><br>
+                    </label>
+                </div>
+
+            </form>
         </div>
 
-        <form th:action="@{/addAccommodation}" method="post" enctype="multipart/form-data">
-
-            <div>
-                <label> Name:
-                    <input name="name" type="text" placeholder="name" required>
-                </label>
-            </div><br>
-
-            <div>
-                <label> City:
-                    <input name="city" type="text" placeholder="city" required>
-                </label>
-            </div><br>
-
-            <div>
-                <label> Rooms:
-                    <input name="amountOfRooms" type="number" min="1" max="25" step="1" value="0" required>
-                </label>
-            </div><br>
-
-            <div>
-                <label> Square:
-                    <input name="square" type="number" min="1" max="50000" value="1.0" step="0.1" required>
-                </label>
-            </div><br>
-
-            <div>
-                <label> Cost:
-                    <input name="cost" type="number" placeholder="cost" min="1.0" value="1.0" step="0.01" required> $
-                </label>
-            </div><br>
-
-            <div>
-                <label> Furnished:
-                    <input name="isFurniture" type="checkbox" th:value="true" th:default="false">
-                </label>
-            </div><br>
-
-            <div>
-                <label> Internet:
-                    <input name="isInternet" type="checkbox" th:value="true" th:default="false">
-                </label>
-            </div><br>
-
-            <div>
-                <label> Type: <br>
-                    <label th:each="type : ${types}">
-                        <input name="type" type="radio" th:value="${type}" required>
-                        <label th:text="${type}"></label><br>
-                    </label>
-                </label>
-            </div><br>
-
-            <div>
-                <label>
-                    <input type="file" name="file" accept="image/jpeg,image/png" max required><br>
-                </label>
-            </div>
-
-            <div>
-                <label>
-                    <button name="add" type="submit">Add</button><br>
-                </label>
-            </div>
-
-        </form>
-
-        <div th:insert="~{parts/navigation :: navigation}"></div>
+        <div th:insert="~{/parts/scripts :: scripts}"></div>
 
 </body>
 </html>
