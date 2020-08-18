@@ -16,10 +16,11 @@ public class Accommodation implements Serializable {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Please fill field name")
+    @Length(max = 255, message = "Name is too long (255)")
     private String name;
     @Column(nullable = false)
     @NotBlank(message = "Please fill field city")
-    @Length(max = 225, message = "City name too long (255)")
+    @Length(max = 255, message = "City name is too long (255)")
     private String city;
 
     @Column(nullable = false)

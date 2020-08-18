@@ -56,18 +56,18 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 22px;
 }
 
-.error-main-text{
-    font-family: 'Cambria', sans-serif ;
+.error-main-text {
+    font-family: 'Cambria', sans-serif;
     color: dimgrey;
     font-size: 84px;
 }
 
-.error-text{
-    font-family: 'Cambria', sans-serif ;
+.error-text {
+    font-family: 'Cambria', sans-serif;
     color: dimgrey;
     font-size: 60px;
 }
 
-.error-indent{
+.error-indent {
     margin-top: 14%;
 }
