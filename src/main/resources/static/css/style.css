@@ -22,6 +22,24 @@ body {
     color: #de3a0a;
 }
 
+/*Firefox*/
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/*Other*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/*add accommodation labels*/
+.bottomLine {
+    width: 100%;
+    border-bottom: 2px solid #fc8624;
+}
+
 .indent {
     padding-top: 2px;
 }

@@ -14,4 +14,15 @@
             });
         });
     </script>
+
+    <script>
+        $('#inputGroupFile').on('change',function(){
+            var fileName = $(this).val();
+            if (fileName.length > 35) {
+                fileName = fileName.slice(0, 32) + "...";
+            }
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    </script>
+
 </div>
