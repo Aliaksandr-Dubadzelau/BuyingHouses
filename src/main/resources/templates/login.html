@@ -4,37 +4,51 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/welcomeStyle.css">
     <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon">
     <title>Sign In Page</title>
 </head>
 <body>
 
-        <div th:if="${param.error}">
-            <h5>Check your login/password. Or confirm your mail.</h5>
-        </div>
-        <div th:if="${param.logout}">
-            <h5>You have been logged out.</h5>
-        </div>
-        <div th:if="${message}">
-            <h5 th:text="${message}"></h5>
-        </div>
+<!--        <div th:if="${param.error}">-->
+<!--            <h5>Check your login/password. Or confirm your mail.</h5>-->
+<!--        </div>-->
+<!--        <div th:if="${param.logout}">-->
+<!--            <h5>You have been logged out.</h5>-->
+<!--        </div>-->
+<!--        <div th:if="${message}">-->
+<!--            <h5 th:text="${message}"></h5>-->
+<!--        </div>-->
 
-        <form th:action="@{/login}" method="post">
-            <div>
-                <label>Login:
-                    <input name="username" type="text" placeholder="Login" autofocus required>
-                </label>
-            </div><br>
-            <div>
-                <label> Password:
-                    <input name="password" type="password" placeholder="Password" required>
-                </label>
-            </div><br>
+    <video autoplay loop muted class="bg-video" id="bg-video">
+        <source src="/static/video/registration.mp4" type="video/mp4"/>
+    </video>
 
-            <button type="submit" name="signIn">login</button><br>
+    <main role="main">
+        <div class="container welcome">
+            <div class="row">
+                <div class="col-md-4 bg-light pt-3 pb-3 pl-3 pr-3 rounded">
+                    <form th:action="@{/login}" method="post" enctype="multipart/form-data">
+                        <div class="text-center">
+                            <img width="40" src="/static/images/logo.svg" alt="">
+                            <span id="Logo-1" class="mb-0 h4 pt-1">Buying</span>
+                            <span id="Logo-2" class="mb-0 h4 pt-1">Houses</span>
+                        </div>
+                        <label class="bottomLine">Login</label>
+                        <input class="form-control" name="username" type="text" placeholder="Login" autofocus required>
+                        <label class="bottomLine">Password</label>
+                        <input class="form-control" name="password" type="password" placeholder="Password" required>
 
-            <a href="/registration">Register</a>
-        </form>
+                        <div>
+                            <button class="btn btn-warning btn-block mt-2" type="submit" name="signIn">Login</button>
+                            <a class="btn btn-outline-warning btn-block mt-1" href="/registration">Register</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
 
 </body>
 </html>

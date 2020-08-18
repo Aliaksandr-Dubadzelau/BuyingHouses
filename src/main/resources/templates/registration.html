@@ -4,36 +4,70 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/welcomeStyle.css">
     <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon">
     <title>Sign Up Page</title>
 </head>
 <body>
 
-        <form th:action="@{/registration}" method="post">
+<!--        <form th:action="@{/registration}" method="post">-->
 
-            <div>
-                <label>E-mail:
-                    <input name="email" type="email" placeholder="e-mail"><br>
-                </label>
-            </div>
-            <div>
-                <label>Password:
-                    <input name="password" type="password" placeholder="password"><br>
-                </label>
-            </div>
-            <div>
-                <label>Repeated password:
-                    <input name="repeatedPassword" type="password" placeholder="repeat password"><br>
-                </label>
-            </div>
-            <div>
-                <label>Login:
-                    <input name="userName" type="text" placeholder="Login"><br>
-                </label>
-            </div>
+<!--            <div>-->
+<!--                <label>E-mail:-->
+<!--                    <input name="email" type="email" placeholder="e-mail"><br>-->
+<!--                </label>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label>Password:-->
+<!--                    <input name="password" type="password" placeholder="password"><br>-->
+<!--                </label>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label>Repeated password:-->
+<!--                    <input name="repeatedPassword" type="password" placeholder="repeat password"><br>-->
+<!--                </label>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label>Login:-->
+<!--                    <input name="userName" type="text" placeholder="Login"><br>-->
+<!--                </label>-->
+<!--            </div>-->
 
-            <button type="submit" name="registration">Register</button>
-        </form>
+<!--            <button type="submit" name="registration">Register</button>-->
+<!--        </form>-->
+
+        <video autoplay loop muted class="bg-video" id="bg-video">
+            <source src="/static/video/registration.mp4" type="video/mp4"/>
+        </video>
+
+        <main role="main">
+            <div class="container welcome">
+                <div class="row">
+                    <div class="col-md-4 col-md-4 bg-light pt-3 pb-3 pl-3 pr-3 rounded">
+                        <form th:action="@{/registration}" method="post" enctype="multipart/form-data">
+                            <div class="text-center">
+                                <img width="40" src="/static/images/logo.svg" alt="">
+                                <span id="Logo-1" class="mb-0 h4 pt-1">Buying</span>
+                                <span id="Logo-2" class="mb-0 h4 pt-1">Houses</span>
+                            </div>
+                            <label class="bottomLine">E-mail</label>
+                            <input class="form-control" name="email" type="email" placeholder="e-mail" autofocus required>
+                            <label class="bottomLine">Password</label>
+                            <input class="form-control" name="password" type="password" placeholder="Password" autofocus required>
+                            <label class="bottomLine">Repeated password</label>
+                            <input class="form-control" name="repeatedPassword" type="password" placeholder="repeat password" autofocus required>
+                            <label class="bottomLine">Login</label>
+                            <input class="form-control" name="userName" type="text" placeholder="Login" autofocus required>
+
+                            <div>
+                                <button class="btn btn-warning btn-block mt-2" type="submit" name="registration">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
 
 </body>
 </html>
