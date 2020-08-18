@@ -11,19 +11,32 @@
 
         <header th:insert="~{parts/navigation :: navigation}"></header>
 
-        <div>
-            <b>Login:</b> <span th:text="${user.getUserName()}"></span><br>
-            <b>E-mail:</b> <span th:text="${user.getEmail()}"></span><br>
-        </div>
-
         <main role="main">
             <div class="container">
+
+                <div class="text-center mb-4 border border-dark rounded">
+                    <span class="font-weight-bold profile-main-text text-warning">Login:</span> <span class="profile-text" th:text="${user.getUserName()}"></span><br>
+                    <span class="font-weight-bold profile-main-text text-warning">E-mail:</span> <span class="profile-text" th:text="${user.getEmail()}"></span><br>
+                </div>
+
                 <div class="row">
-                    <p>Approved accommodation<br></p>
-                    <div th:each="accommodation : ${accommodations}" class="col-md-4 col-sm-6">
-                        <div th:if="${!accommodation.isWaited() && accommodation.getOwner().getId() == user.getId()}" class="card mb-4 shadow-sm">
+                    <div th:each="accommodation : ${accommodations}"
+                         th:if="${!accommodation.isWaited() && accommodation.getOwner().getId() == user.getId()}"
+                         class="col-md-4 col-sm-6">
+                        <div class="card mb-4 shadow-sm">
 
                             <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
+
+                            <div class="p-2">
+                                <div class="d-flex justify-content-center mb-2">
+                                    <table>
+                                        <td>
+                                            <p class="d-inline text-muted">Confirmed:</p>
+                                            <img width="17" src="/static/images/tick.svg" alt="">
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
 
                             <form th:action="@{/profile/delete}" method="post">
                                 <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
@@ -33,11 +46,23 @@
 
                         </div>
                     </div>
-                    <p>Unapproved accommodation<br></p>
-                    <div th:each="accommodation : ${accommodations}" class="col-md-4 col-sm-6">
-                        <div th:if="${accommodation.isWaited() && accommodation.getOwner().getId() == user.getId()}" class="card mb-4 shadow-sm">
+                    <div th:each="accommodation : ${accommodations}"
+                         th:if="${accommodation.isWaited() && accommodation.getOwner().getId() == user.getId()}"
+                         class="col-md-4 col-sm-6">
+                        <div class="card mb-4 shadow-sm">
 
                             <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
+
+                            <div class="p-2">
+                                <div class="d-flex justify-content-center mb-2">
+                                    <table>
+                                        <td>
+                                            <p class="d-inline text-muted">Confirmed:</p>
+                                            <img width="17" src="/static/images/cross.svg" alt="">
+                                        </td>
+                                    </table>
+                                </div>
+                            </div>
 
                             <form th:action="@{/profile/delete}" method="post">
                                 <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">

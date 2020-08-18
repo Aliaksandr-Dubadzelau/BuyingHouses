@@ -25,3 +25,31 @@ body {
 .indent {
     padding-top: 2px;
 }
+
+.profile-main-text {
+    font-family: 'Cambria', sans-serif;
+    color: black;
+    font-size: 24px;
+}
+
+.profile-text {
+    font-family: 'Cambria', sans-serif;
+    color: black;
+    font-size: 22px;
+}
+
+.error-main-text{
+    font-family: 'Cambria', sans-serif ;
+    color: dimgrey;
+    font-size: 84px;
+}
+
+.error-text{
+    font-family: 'Cambria', sans-serif ;
+    color: dimgrey;
+    font-size: 60px;
+}
+
+.error-indent{
+    margin-top: 14%;
+}
