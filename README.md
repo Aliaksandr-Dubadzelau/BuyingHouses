@@ -9,6 +9,6 @@ Step to start:
   4) Change ADMIN to USER back.
   5) App is ready to use.
   6) Look the video for understanding of app functionality.
-  (presentation->help.webm)
+  (presentation->help.webm)(or 
   
-  [![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://youtu.be/DjNE3zdoybE)
+  [![Watch the video](https://commons.wikimedia.org/wiki/File:YouTube_Logo_2017.svg?uselang=ru)](https://youtu.be/DjNE3zdoybE)
