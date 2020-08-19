@@ -13,7 +13,6 @@ public class AccommodationService {
 
     private final static boolean ADDED = true;
     private final static boolean NOT_ADDED = false;
-    private final static float DEFAULT_RATE = 0.0f;
     private final static boolean WAITED = true;
 
     private final AccommodationRepository accommodationRepository;
@@ -68,7 +67,6 @@ public class AccommodationService {
         accommodation.setInternet(isInternet);
         accommodation.setFurniture(isFurniture);
         accommodation.setWaited(WAITED);
-        accommodation.setRate(DEFAULT_RATE);
     }
 
 }

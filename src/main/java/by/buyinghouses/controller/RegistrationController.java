@@ -69,14 +69,14 @@ public class RegistrationController {
             correct = NOT_CORRECT;
         }
 
+        if(!correct){
+            return REGISTRATION;
+        }
+
         if (!userService.addUser(user)) {
             String message = messageCreatorService.createUserExistMessage();
             model.addAttribute("userError", message);
 
-            correct = NOT_CORRECT;
-        }
-
-        if(!correct){
             return REGISTRATION;
         }
 

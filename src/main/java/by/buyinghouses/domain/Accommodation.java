@@ -28,8 +28,6 @@ public class Accommodation implements Serializable {
     private Integer amountOfRooms;
 
     @Column(nullable = false)
-    private Float rate;
-    @Column(nullable = false)
     private Float square;
 
     @Column(nullable = false)
@@ -95,14 +93,6 @@ public class Accommodation implements Serializable {
 
     public void setAmountOfRooms(Integer amountOfRooms) {
         this.amountOfRooms = amountOfRooms;
-    }
-
-    public Float getRate() {
-        return rate;
-    }
-
-    public void setRate(Float rate) {
-        this.rate = rate;
     }
 
     public Float getSquare() {
