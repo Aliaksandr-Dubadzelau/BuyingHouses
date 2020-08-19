@@ -66,6 +66,9 @@ public class AddAccommodationController {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
 
+            model.addAttribute("user", user);
+            model.addAttribute("types", AccommodationType.values());
+
             return ADD_ACCOMMODATION;
         }
 
@@ -77,7 +80,7 @@ public class AddAccommodationController {
             String message = messageCreatorService.createAccommodationExistMessage();
 
             model.addAttribute("user", user);
-            model.addAttribute("message", message);
+            model.addAttribute("nameError", message);
             model.addAttribute("types", AccommodationType.values());
 
             return ADD_ACCOMMODATION;

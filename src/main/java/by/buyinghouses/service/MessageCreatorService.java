@@ -27,15 +27,15 @@ public class MessageCreatorService {
     }
 
     public String createUserExistMessage() {
-        return "User exist";
+        return "User with the same email/login already exist";
     }
 
     public String createSuccessfullyActivatedMessage() {
-        return "User successfully activated.";
+        return "User successfully activated";
     }
 
     public String createActivationCodeNotFoundMessage() {
-        return "Activation code is not found.";
+        return "Activation code is not found";
     }
 
     public String createAccommodationExistMessage() {

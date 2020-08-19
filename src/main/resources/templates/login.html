@@ -10,10 +10,6 @@
     <title>Sign In Page</title>
 </head>
 <body>
-
-<!--        <div th:if="${param.error}">-->
-<!--            <h5>Check your login/password. Or confirm your mail.</h5>-->
-<!--        </div>-->
 <!--        <div th:if="${param.logout}">-->
 <!--            <h5>You have been logged out.</h5>-->
 <!--        </div>-->
@@ -36,9 +32,19 @@
                             <span id="Logo-2" class="mb-0 h4 pt-1">Houses</span>
                         </div>
                         <label class="bottomLine">Login</label>
-                        <input class="form-control" name="username" type="text" placeholder="Login" autofocus required>
+                        <input class="form-control"
+                               th:classappend="${param.error} ? 'is-invalid' : ''"
+                               name="username" type="text" placeholder="Login" autofocus required>
+                        <div class="invalid-feedback">
+                            <span>Check your login/password. Or confirm your mail</span>
+                        </div>
                         <label class="bottomLine">Password</label>
-                        <input class="form-control" name="password" type="password" placeholder="Password" required>
+                        <input class="form-control"
+                               th:classappend="${param.error} ? 'is-invalid' : ''"
+                               name="password" type="password" placeholder="Password" required>
+                        <div class="invalid-feedback">
+                            <span>Check your login/password. Or confirm your mail</span>
+                        </div>
 
                         <div>
                             <button class="btn btn-warning btn-block mt-2" type="submit" name="signIn">Login</button>

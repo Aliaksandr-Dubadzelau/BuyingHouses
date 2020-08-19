@@ -20,6 +20,8 @@ public class RegistrationController {
 
     private static final String REGISTRATION = "registration";
     private static final String LOGIN = "login";
+    private static final boolean CORRECT = true;
+    private static final boolean NOT_CORRECT = false;
 
     private final UserService userService;
     private final MessageCreatorService messageCreatorService;
@@ -44,34 +46,37 @@ public class RegistrationController {
     {
 
         boolean isRepeatedPasswordEmpty = StringUtils.isEmpty(repeatedPassword);
+        boolean correct = CORRECT;
 
         if(isRepeatedPasswordEmpty){
             String message = messageCreatorService.createEmptyRepeatedPasswordMessage();
-            model.addAttribute("repeatedPassword", message);
+            model.addAttribute("repeatedPasswordError", message);
+
+            correct = NOT_CORRECT;
         }
 
-        System.out.println(user.getPassword());
-        System.out.println(repeatedPassword);
-
         if(!user.getPassword().equals(repeatedPassword)){
-            System.out.println("her");
             String message = messageCreatorService.createDifferentPasswordsMessage();
-            model.addAttribute("repeatedPassword", message);
+            model.addAttribute("repeatedPasswordError", message);
 
-            return REGISTRATION;
+            correct = NOT_CORRECT;
         }
 
         if(bindingResult.hasErrors()){
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errors);
 
-            return REGISTRATION;
+            correct = NOT_CORRECT;
         }
 
         if (!userService.addUser(user)) {
             String message = messageCreatorService.createUserExistMessage();
-            model.addAttribute("userName", message);
+            model.addAttribute("userError", message);
 
+            correct = NOT_CORRECT;
+        }
+
+        if(!correct){
             return REGISTRATION;
         }
 

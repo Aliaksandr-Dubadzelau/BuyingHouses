@@ -1,6 +1,7 @@
 package by.buyinghouses.domain;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,11 +17,11 @@ public class Accommodation implements Serializable {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Please fill field name")
-    @Length(max = 255, message = "Name is too long (255)")
+    @Length(max = 28, message = "Name is too long (28)")
     private String name;
     @Column(nullable = false)
     @NotBlank(message = "Please fill field city")
-    @Length(max = 255, message = "City name is too long (255)")
+    @Length(max = 15, message = "City name is too long (15)")
     private String city;
 
     @Column(nullable = false)

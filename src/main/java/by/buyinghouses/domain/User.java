@@ -19,7 +19,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Please fill field logn")
+    @NotBlank(message = "Please fill field login")
     private String userName;
     @Column(nullable = false)
     @NotBlank(message = "Please fill field password")
