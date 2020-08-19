@@ -9,4 +9,4 @@ Step to start:
   4) Change ADMIN to USER back.
   5) App is ready to use.
   6) Look the video for understanding of app functionality.
-  (presentation->help.webm)[![Watch the video](https://acsmil.ejoinme.org/Portals/4882/Files/2013%20Gala%20Madison/Play.jpg)](https://youtu.be/DjNE3zdoybE)
+  (presentation->help.webm) or click here -> [![Watch the video](https://acsmil.ejoinme.org/Portals/4882/Files/2013%20Gala%20Madison/Play.jpg)](https://youtu.be/DjNE3zdoybE)
