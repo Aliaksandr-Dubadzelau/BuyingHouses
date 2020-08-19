@@ -10,3 +10,5 @@ Step to start:
   5) App is ready to use.
   6) Look the video for understanding of app functionality.
   (presentation->help.webm)
+  
+  [![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://youtu.be/vt5fpE0bzSY)
