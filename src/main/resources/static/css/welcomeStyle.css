@@ -7,11 +7,6 @@
     transform: translate(-50%, -50%)
 }
 
-body {
-    background: url('video.png');
-    background-size: cover;
-}
-
 .bg-video {
     position: fixed;
     right: 0;
