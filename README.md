@@ -11,4 +11,4 @@ Step to start:
   6) Look the video for understanding of app functionality.
   (presentation->help.webm)(or 
   
-  [![Watch the video](https://commons.wikimedia.org/wiki/File:YouTube_Logo_2017.svg?uselang=ru)](https://youtu.be/DjNE3zdoybE)
+  [![Watch the video](https://steamuserimages-a.akamaihd.net/ugc/911294024170749614/2885730D40804EC3ED88C9653456D6E0170D907F/)](https://youtu.be/DjNE3zdoybE)
