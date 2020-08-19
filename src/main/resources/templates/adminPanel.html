@@ -21,16 +21,20 @@
                             <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
 
                             <form method="post" th:action="@{/adminPanel/accept}">
-                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                                <button class="btn btn-success btn-block" type="submit" name="accept">Accept</button>
+                                <div class="ml-2 mr-2 mt-2 mb-1">
+                                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                    <button class="btn btn-success btn-block" type="submit" name="accept">Accept</button>
+                                </div>
                             </form>
 
                             <div class="indent"></div>
 
                             <form method="post" th:action="@{/adminPanel/delete}">
-                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                                <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
-                                <button class="btn btn-danger btn-block" type="submit" name="delete">Delete</button>
+                                <div class="ml-2 mr-2 mb-2">
+                                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                    <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
+                                    <button class="btn btn-danger btn-block" type="submit" name="delete">Delete</button>
+                                </div>
                             </form>
 
                         </div>

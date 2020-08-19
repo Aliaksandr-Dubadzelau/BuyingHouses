@@ -21,8 +21,10 @@
                             <div th:insert="~{parts/accommodationInformation :: accommodationInformation}"></div>
 
                             <form method="get" th:action="@{/payment/{id}(id=${accommodation.getId()})}">
-                                <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
-                                <button class="btn btn-warning btn-block" type="submit" name="buy">Buy</button>
+                                <div class="m-2">
+                                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                    <button class="btn btn-warning btn-block" type="submit" name="buy">Buy</button>
+                                </div>
                             </form>
 
                         </div>
