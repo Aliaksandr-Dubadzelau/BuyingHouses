@@ -46,10 +46,11 @@ public class UserService implements UserDetailsService {
 
         String userEmail = user.getEmail();
         String userName = user.getUserName();
-        User userFromDB = userRepository.findByEmailOrUserName(userEmail, userName);
+        User userByEmailFromDB = userRepository.findByEmail(userEmail);
+        User userByNameFromDB = userRepository.findByUserName(userName);
         boolean isAdded = ADDED;
 
-        if (userFromDB != null) {
+        if (userByEmailFromDB != null || userByNameFromDB != null) {
             isAdded = NOT_ADDED;
         } else {
             prepareUserToSaving(user);
