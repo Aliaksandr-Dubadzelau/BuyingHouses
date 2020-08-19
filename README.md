@@ -11,4 +11,4 @@ Step to start:
   6) Look the video for understanding of app functionality.
   (presentation->help.webm)
   
-  [![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://github.com/Aliaksandr-Dubadzelau/BuyingHouses/blob/master/presentation/help.webm)
+  [![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://youtu.be/DjNE3zdoybE)
