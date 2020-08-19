@@ -33,4 +33,46 @@
         });
     </script>
 
+    <script>
+        $('#front').click(function (){
+            // let re = /^[0-9][0-9][0-9][0-9]$/;
+            // re.test($('#1').val())
+            if(!$('#input-1').is(":focus") &&
+                !$('#input-2').is(":focus") &&
+                !$('#input-3').is(":focus") &&
+                !$('#input-4').is(":focus") &&
+                !$('#input-5').is(":focus") &&
+                !$('#input-6').is(":focus") &&
+                !$('#input-7').is(":focus")) {
+
+                $('#front').css({
+                    "transform": "rotateY(180deg)"
+                })
+                $('#back').css({
+                    "transform": "rotateY(360deg)"
+                })
+                $('#arrow').css({
+                    "opacity": "0",
+                    "transition": "opacity .2s linear"
+                })
+            }
+        })
+
+        $('#back').click(function (){
+
+            if(!$('#input-8').is(":focus")) {
+                $('#front').css({
+                    "transform": "rotateY(0deg)"
+                })
+                $('#back').css({
+                    "transform": "rotateY(180deg)"
+                })
+                $('#arrow').css({
+                    "opacity": "1",
+                    "transition": "opacity .2s linear"
+                })
+            }
+        })
+    </script>
+
 </div>
