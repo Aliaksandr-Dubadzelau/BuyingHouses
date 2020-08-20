@@ -1,6 +1,7 @@
 package by.buyinghouses.controller;
 
 import by.buyinghouses.service.MessageCreatorService;
+import by.buyinghouses.service.Messages;
 import by.buyinghouses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,9 @@ public class ActivationController {
         boolean isActivated = userService.activateUser(code);
 
         if (isActivated) {
-            message = messageCreatorService.createSuccessfullyActivatedMessage();
+            message = messageCreatorService.createMessage(Messages.SUCCESSFULLY_ACTIVATED_MESSAGE);
         } else {
-            message = messageCreatorService.createActivationCodeNotFoundMessage();
+            message = messageCreatorService.createMessage(Messages.ACTIVATION_CODE_NOT_FOUND_MESSAGE);
         }
 
         model.addAttribute("message", message);

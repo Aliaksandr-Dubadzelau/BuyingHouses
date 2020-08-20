@@ -6,6 +6,7 @@ import by.buyinghouses.domain.User;
 import by.buyinghouses.service.AccommodationService;
 import by.buyinghouses.service.FileService;
 import by.buyinghouses.service.MessageCreatorService;
+import by.buyinghouses.service.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -77,11 +77,11 @@ public class AddAccommodationController {
 
         if (!accommodationService.addAccommodation(accommodation)) {
 
-            String message = messageCreatorService.createAccommodationExistMessage();
+            String message = messageCreatorService.createMessage(Messages.ACCOMMODATION_EXIST_MESSAGE);
 
             model.addAttribute("user", user);
-            model.addAttribute("nameError", message);
             model.addAttribute("types", AccommodationType.values());
+            model.addAttribute("nameError", message);
 
             return ADD_ACCOMMODATION;
         }

@@ -2,6 +2,7 @@ package by.buyinghouses.controller;
 
 import by.buyinghouses.domain.User;
 import by.buyinghouses.service.MessageCreatorService;
+import by.buyinghouses.service.Messages;
 import by.buyinghouses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,14 +50,14 @@ public class RegistrationController {
         boolean correct = CORRECT;
 
         if(isRepeatedPasswordEmpty){
-            String message = messageCreatorService.createEmptyRepeatedPasswordMessage();
+            String message = messageCreatorService.createMessage(Messages.EMPTY_PASSWORD_MESSAGE);
             model.addAttribute("repeatedPasswordError", message);
 
             correct = NOT_CORRECT;
         }
 
         if(!user.getPassword().equals(repeatedPassword)){
-            String message = messageCreatorService.createDifferentPasswordsMessage();
+            String message = messageCreatorService.createMessage(Messages.DIFFERENT_PASSWORD_MESSAGE);
             model.addAttribute("repeatedPasswordError", message);
 
             correct = NOT_CORRECT;
@@ -74,7 +75,7 @@ public class RegistrationController {
         }
 
         if (!userService.addUser(user)) {
-            String message = messageCreatorService.createUserExistMessage();
+            String message = messageCreatorService.createMessage(Messages.USER_EXIST_MESSAGE);
             model.addAttribute("userError", message);
 
             return REGISTRATION;

@@ -3,10 +3,29 @@ package by.buyinghouses.service;
 import by.buyinghouses.domain.User;
 import org.springframework.stereotype.Service;
 
-//do not forget to redo
-
 @Service
 public class MessageCreatorService {
+
+    public String createMessage(Messages message) {
+
+        switch (message) {
+            case EMPTY_PASSWORD_MESSAGE:
+                return "Please fill field repeated password";
+            case DIFFERENT_PASSWORD_MESSAGE:
+                return "Passwords are different";
+            case USER_EXIST_MESSAGE:
+                return "User with the same email/login already exist";
+            case SUCCESSFULLY_ACTIVATED_MESSAGE:
+                return "User successfully activated";
+            case ACTIVATION_CODE_NOT_FOUND_MESSAGE:
+                return "Activation code is not found";
+            case ACCOMMODATION_EXIST_MESSAGE:
+                return "Accommodation with the same name already exists";
+            default:
+                return "Bad request";
+        }
+
+    }
 
     public String createEmailMessage(User user) {
         return String.format(
@@ -16,29 +35,5 @@ public class MessageCreatorService {
                 user.getUserName(),
                 user.getActivationCode()
         );
-    }
-
-    public String createEmptyRepeatedPasswordMessage() {
-        return "Please fill field repeated password";
-    }
-
-    public String createDifferentPasswordsMessage() {
-        return "Passwords are different";
-    }
-
-    public String createUserExistMessage() {
-        return "User with the same email/login already exist";
-    }
-
-    public String createSuccessfullyActivatedMessage() {
-        return "User successfully activated";
-    }
-
-    public String createActivationCodeNotFoundMessage() {
-        return "Activation code is not found";
-    }
-
-    public String createAccommodationExistMessage() {
-        return "Accommodation with the same name already exists";
     }
 }

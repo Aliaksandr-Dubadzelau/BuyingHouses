@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/buyingAccommodation")
@@ -25,8 +26,7 @@ public class BuyingAccommodationController {
     @GetMapping
     public String getBuyingAccommodation(
             @AuthenticationPrincipal User user,
-            Model model)
-    {
+            Model model) {
 
         Iterable<Accommodation> accommodations = accommodationService.findAccommodations();
         model.addAttribute("user", user);
