@@ -1,4 +1,5 @@
 This project is a buying houses web-app.
+Developed with [ilya-balkis](#https://github.com/ilya-balkis)
 
 Step to start:
   1) Change email and password for mail sender. 
