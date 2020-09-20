@@ -28,26 +28,29 @@
 
                             <label class="bottomLine">E-mail</label>
                             <input class="form-control" th:classappend="${userError} ? 'is-invalid' : ''"
-                                   name="email" type="email" placeholder="e-mail" autofocus required>
+                                   name="email" type="email" maxlength="70" placeholder="e-mail" autofocus required>
                             <div class="invalid-feedback">
                                 <span th:text="${emailError}"></span>
                                 <span th:text="${userError}"></span>
                             </div>
 
                             <label class="bottomLine">Password</label>
-                            <input class="form-control" th:classappend="${passwordError} ? 'is-invalid' : ''" name="password" type="password" placeholder="Password" autofocus required>
+                            <input class="form-control" th:classappend="${passwordError} ? 'is-invalid' : ''"
+                                   name="password" type="password" maxlength="70" placeholder="Password" autofocus required>
                             <div class="invalid-feedback">
                                 <span th:text="${passwordError}"></span>
                             </div>
 
                             <label class="bottomLine">Repeated password</label>
-                            <input class="form-control" th:classappend="${repeatedPasswordError} ? 'is-invalid' : ''" name="repeatedPassword" type="password" placeholder="Repeat password" autofocus required>
+                            <input class="form-control" th:classappend="${repeatedPasswordError} ? 'is-invalid' : ''"
+                                   name="repeatedPassword" type="password" maxlength="70" placeholder="Repeat password" autofocus required>
                             <div class="invalid-feedback">
                                 <p th:text="${repeatedPasswordError}"></p>
                             </div>
 
                             <label class="bottomLine">Login</label>
-                            <input class="form-control" th:classappend="${userError} ? 'is-invalid' : ''" name="userName" type="text" placeholder="Login" autofocus required>
+                            <input class="form-control" th:classappend="${userError} ? 'is-invalid' : ''"
+                                   name="userName" type="text" placeholder="Login" maxlength="70" autofocus required>
                             <div class="invalid-feedback">
                                 <span th:text="${userError}"></span>
                             </div>

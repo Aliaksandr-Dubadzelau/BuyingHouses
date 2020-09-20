@@ -1,5 +1,6 @@
 package by.buyinghouses.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,13 +21,17 @@ public class User implements UserDetails {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Please fill field login")
+    @Length(max = 70, message = "Name is too long (70)")
     private String userName;
     @Column(nullable = false)
     @NotBlank(message = "Please fill field password")
+    @Length(max = 70, message = "Password is too long (70)")
     private String password;
     @Column(nullable = false, unique = true)
+
     @NotBlank(message = "Please fill field email")
     @Email(message = "Email isn't correct")
+    @Length(max = 70, message = "Email is too long (70)")
     private String email;
     private boolean active;
     @Column(unique = true)

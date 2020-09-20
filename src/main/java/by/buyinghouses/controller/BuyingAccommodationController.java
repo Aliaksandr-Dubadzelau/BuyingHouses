@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -32,6 +33,20 @@ public class BuyingAccommodationController {
         model.addAttribute("user", user);
         model.addAttribute("accommodations", accommodations);
 
+        return BUYING_ACCOMMODATION;
+    }
+
+    @PostMapping
+    public String postBuyingAccommodation(
+            @AuthenticationPrincipal User user,
+            String isInternet,
+            String isFurniture,
+            Accommodation accommodation,
+            Model model) {
+        Iterable<Accommodation> accommodations = accommodationService.findAccommodations();
+        accommodationService.filterAccommodation(accommodations, accommodation, isFurniture, isInternet);
+        model.addAttribute("user", user);
+        model.addAttribute("accommodations", accommodations);
         return BUYING_ACCOMMODATION;
     }
 }
