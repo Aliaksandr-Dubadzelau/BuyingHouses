@@ -42,6 +42,18 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public Iterable<User> findUsers() {
+        return userRepository.findAll();
+    }
+
+    public User findUser(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    public void deleteUser(String userName) {
+        userRepository.deleteById(userName);
+    }
+
     public boolean addUser(User user) {
 
         String userEmail = user.getEmail();

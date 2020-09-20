@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class AccommodationService {
@@ -44,6 +45,10 @@ public class AccommodationService {
 
     public Accommodation findAccommodation(String accommodationName) {
         return accommodationRepository.findByName(accommodationName);
+    }
+
+    public List<Accommodation> findAccommodation(User user) {
+        return accommodationRepository.findByOwner(user);
     }
 
     public void deleteAccommodation(String accommodationName, String fileName) throws IOException {
