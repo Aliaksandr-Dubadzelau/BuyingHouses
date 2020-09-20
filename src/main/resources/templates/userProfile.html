@@ -39,8 +39,17 @@
                                 </div>
                             </div>
 
+                            <form method="get" th:action="@{/editPanel/{id}(id=${accommodation.getId()})}">
+                                <div class="ml-2 mr-2 mt-2 mb-1">
+                                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                    <button class="btn btn-warning btn-block" type="submit" name="buy">Edit</button>
+                                </div>
+                            </form>
+
+                            <div class="indent"></div>
+
                             <form th:action="@{/profile/delete}" method="post">
-                                <div class="m-2">
+                                <div class="ml-2 mr-2 mb-2">
                                     <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
                                     <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
                                     <button class="btn btn-danger btn-block" type="submit" name="delete">Delete</button>
@@ -67,8 +76,17 @@
                                 </div>
                             </div>
 
+                            <form method="get" th:action="@{/editPanel/{id}(id=${accommodation.getId()})}">
+                                <div class="ml-2 mr-2 mt-2 mb-1">
+                                    <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
+                                    <button class="btn btn-warning btn-block" type="submit" name="buy">Edit</button>
+                                </div>
+                            </form>
+
+                            <div class="indent"></div>
+
                             <form th:action="@{/profile/delete}" method="post">
-                                <div class="m-2">
+                                <div class="ml-2 mr-2 mb-2">
                                     <input type="hidden" name="accommodationName" th:value="${accommodation.getName()}">
                                     <input type="hidden" name="fileName" th:value="${accommodation.getFileName()}">
                                     <button class="btn btn-danger btn-block" type="submit" name="delete">Delete</button>
