@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -34,7 +35,9 @@ public class AdminController {
             @AuthenticationPrincipal User user,
             Model model) {
 
-        Iterable<Accommodation> accommodations = accommodationService.findAccommodations();
+        Iterable<Accommodation> allAccommodations = accommodationService.findAccommodations();
+        List<Accommodation> accommodations = accommodationService.getWaitedAccommodation(allAccommodations);
+
         model.addAttribute("user", user);
         model.addAttribute("accommodations", accommodations);
 
@@ -42,10 +45,14 @@ public class AdminController {
     }
 
     @PostMapping("/accept")
-    public String postAccess(
+    public String postAccept(
             @RequestParam String accommodationName) {
 
-        accommodationService.acceptAccommodation(accommodationName);
+        try {
+            accommodationService.acceptAccommodation(accommodationName);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/" + ADMIN_PANEL;
     }
@@ -55,7 +62,11 @@ public class AdminController {
             @RequestParam String accommodationName,
             @RequestParam String fileName) throws IOException {
 
-        accommodationService.deleteAccommodation(accommodationName, fileName);
+        try {
+            accommodationService.deleteAccommodation(accommodationName, fileName);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/" + ADMIN_PANEL;
     }

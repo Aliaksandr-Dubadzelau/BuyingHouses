@@ -47,7 +47,13 @@ public class EditController {
             @RequestParam String accommodationName
             ) {
 
-        accommodationService.updateAccommodationCost(cost, accommodationName);
+        try {
+            accommodationService.updateAccommodationCost(cost, accommodationName);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
         return "redirect:/" + PROFILE;
     }
 }

@@ -47,7 +47,12 @@ public class ProfileController {
             @RequestParam String fileName
     ) throws IOException {
 
-        accommodationService.deleteAccommodation(accommodationName, fileName);
+        try {
+            accommodationService.deleteAccommodation(accommodationName, fileName);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
         return "redirect:/" + PROFILE;
     }

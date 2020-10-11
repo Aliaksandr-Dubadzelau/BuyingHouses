@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,13 +62,7 @@ public class DeleteController {
 
         if(!user.getUserName().equals(userName)){
             userService.deleteUser(userName);
-            files.forEach(p -> {
-                try {
-                    fileService.deleteImage(p);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            files.forEach(fileService::deleteImage);
         }
 
         return "redirect:/" + DELETE_PANEL;

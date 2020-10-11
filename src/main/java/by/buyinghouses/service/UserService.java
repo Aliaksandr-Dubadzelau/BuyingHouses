@@ -16,6 +16,7 @@ import java.util.Collections;
 @Service
 public class UserService implements UserDetailsService {
 
+
     private final static boolean ACTIVATED = true;
     private final static boolean NOT_ACTIVATED = false;
     private final static boolean ADDED = true;
@@ -23,11 +24,16 @@ public class UserService implements UserDetailsService {
     private final static String CONFIRMED_ACTIVATION_CODE = null;
     private final static String MAIL_SUBJECT = "Activation code";
 
-    private final UserRepository userRepository;
-    private final MailSenderService mailSenderService;
-    private final MessageCreatorService messageCreatorService;
-    private final UUIDService uuidService;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private MailSenderService mailSenderService;
+    @Autowired
+    private MessageCreatorService messageCreatorService;
+    @Autowired
+    private UUIDService uuidService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository,
@@ -42,6 +48,10 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public UserService() {
+
+    }
+
     public Iterable<User> findUsers() {
         return userRepository.findAll();
     }
@@ -51,7 +61,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(String userName) {
-        userRepository.deleteById(userName);
+        userRepository.deleteByName(userName);
     }
 
     public boolean addUser(User user) {
@@ -60,19 +70,21 @@ public class UserService implements UserDetailsService {
         String userName = user.getUserName();
         User userByEmailFromDB = userRepository.findByEmail(userEmail);
         User userByNameFromDB = userRepository.findByUserName(userName);
-        boolean isAdded = ADDED;
+        boolean isAdded;
 
         if (userByEmailFromDB != null || userByNameFromDB != null) {
             isAdded = NOT_ADDED;
         } else {
             prepareUserToSaving(user);
-            save(user);
+            isAdded = NOT_ADDED;
 
             if (!StringUtils.isEmpty(user.getEmail())) {
 
+                isAdded = ADDED;
                 String message = messageCreatorService.createEmailMessage(user);
 
                 mailSenderService.send(userEmail, MAIL_SUBJECT, message);
+                save(user);
             }
         }
 

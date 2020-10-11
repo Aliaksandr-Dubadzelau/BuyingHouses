@@ -13,7 +13,10 @@ public class MailSenderService {
     @Value("${spring.mail.username}")
     private String username;
 
-    private final JavaMailSender mailSender;
+    private JavaMailSender mailSender;
+
+    public MailSenderService() {
+    }
 
     @Autowired
     public MailSenderService(JavaMailSender mailSender) {

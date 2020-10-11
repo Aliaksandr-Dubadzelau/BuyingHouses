@@ -2,38 +2,59 @@ package by.buyinghouses.service;
 
 import by.buyinghouses.domain.User;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class MessageCreatorService {
 
     public String createMessage(Messages message) {
 
+        String result;
+
         switch (message) {
             case EMPTY_PASSWORD_MESSAGE:
-                return "Please fill field repeated password";
+                result = "Please fill field repeated password";
+                break;
             case DIFFERENT_PASSWORD_MESSAGE:
-                return "Passwords are different";
+                result = "Passwords are different";
+                break;
             case USER_EXIST_MESSAGE:
-                return "User with the same email/login already exist";
+                result = "User with the same email/login already exist";
+                break;
             case SUCCESSFULLY_ACTIVATED_MESSAGE:
-                return "User successfully activated";
+                result = "User successfully activated";
+                break;
             case ACTIVATION_CODE_NOT_FOUND_MESSAGE:
-                return "Activation code is not found";
+                result = "Activation code is not found";
+                break;
             case ACCOMMODATION_EXIST_MESSAGE:
-                return "Accommodation with the same name already exists";
+                result = "Accommodation with the same name already exists";
+                break;
             default:
-                return "Bad request";
+                result = "Bad request";
+                break;
         }
 
+        return result;
     }
 
     public String createEmailMessage(User user) {
-        return String.format(
-                "Hello, %s! "
-                        + "\n"
-                        + "Welcome to Buyinghouses. Please, visit our link: http://localhost:8080/activate/%s",
-                user.getUserName(),
-                user.getActivationCode()
-        );
+
+        String emailMessage;
+
+        if (user != null && !StringUtils.isEmpty(user.getEmail())) {
+            emailMessage = String.format(
+                    "Hello, %s! "
+                            + "\n"
+                            + "Welcome to Buyinghouses. Please, visit our link: http://localhost:8080/activate/%s",
+                    user.getUserName(),
+                    user.getActivationCode());
+        }
+        else{
+            emailMessage = "Something go wrong";
+        }
+
+        return emailMessage;
+
     }
 }

@@ -19,5 +19,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Modifying
     @Transactional
     @Query(value = "delete from User as us where us.userName = ?1")
-    void deleteById(String userName);
+    void deleteByName(String userName);
 }

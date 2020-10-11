@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,8 +20,11 @@ public class AccommodationService {
     private final static boolean WAITED = true;
     private final static String YES = "YES";
 
-    private final AccommodationRepository accommodationRepository;
-    private final FileService fileService;
+    private AccommodationRepository accommodationRepository;
+    private FileService fileService;
+
+    public AccommodationService() {
+    }
 
     @Autowired
     public AccommodationService(AccommodationRepository accommodationRepository, FileService fileService) {
@@ -64,6 +68,19 @@ public class AccommodationService {
         Accommodation accommodation = accommodationRepository.findByName(accommodationName);
         accommodation.setWaited(false);
         accommodationRepository.save(accommodation);
+    }
+
+    public List<Accommodation> getWaitedAccommodation(Iterable<Accommodation> accommodations){
+
+        List<Accommodation> nonActivatedAccommodation= new ArrayList<>();
+
+        for(Accommodation accommodation : accommodations){
+            if(accommodation.isWaited()){
+                nonActivatedAccommodation.add(accommodation);
+            }
+        }
+
+        return nonActivatedAccommodation;
     }
 
     public void fillAccommodation(

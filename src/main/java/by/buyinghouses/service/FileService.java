@@ -17,14 +17,17 @@ public class FileService {
     @Value("${upload.path}")
     private String path;
 
-    private final UUIDService uuidService;
+    private UUIDService uuidService;
+
+    public FileService() {
+    }
 
     @Autowired
     public FileService(UUIDService uuidService) {
         this.uuidService = uuidService;
     }
 
-    public void saveImage(String fileName, MultipartFile file) throws IOException {
+    public void saveImage(String fileName, MultipartFile file){
 
         createUploadFolder();
         upload(file, fileName);
@@ -37,11 +40,15 @@ public class FileService {
         return createFileName(uuidFile, file);
     }
 
-    public void deleteImage(String fileName) throws IOException {
+    public void deleteImage(String fileName){
 
-        String stringPath = createPaths(fileName);
-        Path filePath = Paths.get(stringPath);
-        Files.delete(filePath);
+        try {
+            String stringPath = createPaths(fileName);
+            Path filePath = Paths.get(stringPath);
+            Files.delete(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String createPaths(String fileName) {
@@ -61,9 +68,13 @@ public class FileService {
         return uuid + "." + file.getOriginalFilename();
     }
 
-    private void upload(MultipartFile file, String fileName) throws IOException {
+    private void upload(MultipartFile file, String fileName){
 
-        String filePath = createPaths(fileName);
-        file.transferTo(new File(filePath));
+        try {
+            String filePath = createPaths(fileName);
+            file.transferTo(new File(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
